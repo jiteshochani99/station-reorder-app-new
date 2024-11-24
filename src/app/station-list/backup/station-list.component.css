@@ -1,0 +1,544 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Global Styles */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Station List Container */
+.station-list-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.station-list-container .title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+/* Accordion Styling */
+.mat-expansion-panel {
+  overflow: visible !important; /* Allow content to expand fully */
+}
+
+.mat-expansion-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  background-color: #f1f1f1; /* Slightly darker shade for expanded panel */
+}
+
+/* Station Card Styling */
+.station-card {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  min-height: 70px; /* Ensure consistent row height */
+  padding: 10px 0;
+}
+
+/* Search Bar Styling */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 1rem;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.preference-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preference-input {
+  width: 60px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.preference-container button {
+  padding: 10px 15px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.preference-container button:hover {
+  background-color: #2c387e;
+}
+
+/* Station Summary Section */
+.station-summary {
+  display: flex;
+  justify-content: space-between; /* Space out elements */
+  align-items: center; /* Align elements vertically */
+  width: 100%;
+  gap: 10px;
+}
+
+/* Station Info (Left Section) */
+.station-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.station-name {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+  max-width: 250px; /* Limit width */
+}
+
+.station-city {
+  font-size: 0.9rem;
+  color: gray;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.station-city mat-icon {
+  font-size: 1rem;
+  margin-right: 5px;
+  color: gray;
+}
+
+/* Stipend Section (Right-Aligned) */
+.station-stipend {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3f51b5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align stipend to the right */
+  margin: 0;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Add ellipsis */
+  max-width: 150px;
+}
+
+.station-stipend mat-icon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+  color: #3f51b5;
+}
+
+/* Expanded Station Details */
+.station-details {
+  word-wrap: break-word; /* Wrap long text to avoid horizontal overflow */
+  padding: 10px; /* Add some padding for better readability */
+  white-space: normal; /* Ensure text doesn't stay on one line */
+  background-color: #ffffff; /* Set a background color to make it distinct */
+  border-radius: 8px; /* Match the overall styling of the card */
+}
+
+.station-details p {
+  margin: 5px 0; /* Add space between paragraphs */
+  line-height: 1.5; /* Improve text readability */
+}
+
+/* Dragging Effects */
+.cdk-drag-preview {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+  height: 70px; /* Match row height */
+}
+
+.cdk-drag-animating {
+  transition: transform 0.2s ease;
+}
+
+/* Buttons for Moving to Top/Bottom */
+.move-to-top-button {
+  padding: 5px 10px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.move-to-top-button:hover {
+  background-color: #388e3c;
+}
+
+.move-to-bottom-button {
+  padding: 5px 10px;
+  background-color: #ff5722; /* Orange */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.move-to-bottom-button:hover {
+  background-color: #e64a19;
+}
+
+/* Save as PDF Button */
+.save-pdf-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-pdf-button:hover {
+  background-color: #2c387e;
+}
+
+/* Save as JSON Button */
+.save-json-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-json-button:hover {
+  background-color: #388e3c;
+}
+
+/* Clear Search Button */
+.clear-button {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: gray;
+  outline: none;
+}
+
+.clear-button:hover {
+  color: #3f51b5;
+}
+/* Search Bar Styling */
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 10px;
+    font-size: 1rem;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow inside input */
+  }
+  
+  .clear-button {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    cursor: pointer;
+    color: gray;
+    outline: none;
+  }
+  
+  .clear-button:hover {
+    color: #3f51b5;
+    transform: scale(1.1); /* Add a slight scaling effect */
+    transition: all 0.2s ease; /* Smooth transition for hover effect */
+  }
+  .update-position-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px 0;
+    gap: 10px;
+  }
+  
+  .position-input {
+    width: 60px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .update-position-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .update-position-input {
+    width: 80px;
+    padding: 5px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .update-position-button {
+    padding: 5px 10px;
+    background-color: #4caf50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-position-button:hover {
+    background-color: #388e3c;
+  }
+  
+  .programme-filter-container {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .programme-filter-select {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+  }
+  
+  .favorite-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  mat-icon.favorite {
+    color: gold; /* Highlight favorite icons in gold */
+  }
+  
+  mat-icon {
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  .favorites-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .favorites-content {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .close-popup-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-popup-button:hover {
+    background-color: #e64a19;
+  }
+  .show-favorites-button {
+    background-color: #ff9800; /* Orange color for visibility */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for better appearance */
+    font-size: 16px; /* Font size for readability */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .show-favorites-button:hover {
+    background-color: #e68a00; /* Darker shade of orange on hover */
+  }
+  
+  .show-favorites-button:active {
+    background-color: #cc7a00; /* Even darker shade on click */
+    transform: scale(0.98); /* Slight shrink on click for feedback */
+  }
+  
+  .show-favorites-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.5); /* Custom focus ring */
+  }
+  .remove-button {
+    background-color: #f44336; /* Red color for remove action */
+    color: white; /* White text for contrast */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better appearance */
+    font-size: 0.9rem; /* Slightly smaller font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    margin-left: 5px; /* Space between other buttons */
+  }
+  
+  .remove-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
+  .remove-button:active {
+    background-color: #b71c1c; /* Even darker red on click */
+    transform: scale(0.95); /* Slight shrink on click for feedback */
+  }
+  
+  .remove-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.5); /* Custom focus ring */
+  }
+  /* Favorites Popup Container */
+.favorites-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 700px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden; /* Ensures content does not overflow the popup */
+}
+
+/* Popup Content with Scrollbar */
+.favorites-content {
+  max-height: 70vh; /* Limit the popup height to 70% of the viewport */
+  overflow-y: auto; /* Add a vertical scrollbar if content overflows */
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in total width/height */
+}
+
+/* Close Button Styling */
+.close-popup-button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background: #ff5c5c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+.close-popup-button:hover {
+  background: #ff1a1a;
+}
+
+/* Optional Styling for Scrollbar (Modern Browsers) */
+.favorites-content::-webkit-scrollbar {
+  width: 8px; /* Width of scrollbar */
+}
+
+.favorites-content::-webkit-scrollbar-thumb {
+  background: #ccc; /* Scrollbar color */
+  border-radius: 4px; /* Round scrollbar edges */
+}
+
+.favorites-content::-webkit-scrollbar-thumb:hover {
+  background: #aaa; /* Scrollbar hover color */
+}
+.unfavorite-button {
+  background-color: #ffa500; /* Orange to indicate an action */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.unfavorite-button:hover {
+  background-color: #ff8c00; /* Darker orange for hover effect */
+}

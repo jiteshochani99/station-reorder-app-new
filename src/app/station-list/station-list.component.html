@@ -1,0 +1,188 @@
+<div id="station-list-container" class="station-list-container">
+  <h2 class="title">🚉 Station List</h2>
+
+  <!-- Search and Programme Filter -->
+  <div class="search-container">
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search station by name"
+        [(ngModel)]="searchQuery"
+        (input)="filterStations()"
+        class="search-input"
+      />
+      <button
+        *ngIf="searchQuery"
+        class="clear-button"
+        (click)="clearSearch()"
+        aria-label="Clear search"
+      >
+        
+      </button>
+    </div>
+
+    <!-- Programme Filter -->
+    <div class="programme-filter-container">
+      <mat-form-field class="programme-filter-mat-field">
+        <mat-label>Filter by Programme</mat-label>
+        <mat-select
+          [(ngModel)]="programmeFilters"
+          (selectionChange)="filterStations()"
+          multiple
+        >
+          <mat-option *ngFor="let programme of validProgrammes" [value]="programme">
+            {{ programme.toUpperCase() }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Save Buttons and Show Favorites -->
+  <div class="button-container">
+    <button class="save-pdf-button" (click)="saveAsPDF()">Save as PDF</button>
+    <button class="save-json-button" (click)="saveAsJSON()">Save as JSON</button>
+    <button class="show-favorites-button" (click)="showFavoritesPopup()">Show Favorites</button>
+  </div>
+
+  <!-- Station List -->
+  <div cdkDropList (cdkDropListDropped)="onDrop($event)">
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let station of filteredStations; let i = index"
+        cdkDrag
+        class="station-card"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="station-summary">
+              <!-- Sequence Number -->
+              <div class="station-sequence">
+                <strong>#{{ i + 1 }}</strong>
+              </div>
+
+              <!-- Station Info -->
+              <div class="station-info">
+                <h3 class="station-name">{{ station['Station Name'] }}</h3>
+                <p class="station-city">
+                  <mat-icon>location_on</mat-icon> {{ station['City'] }}
+                </p>
+              </div>
+
+              <!-- Favorite Icon -->
+              <div
+                class="favorite-icon"
+                (click)="toggleFavorite(station); $event.stopPropagation()"
+              >
+                <mat-icon [ngClass]="{'favorite': station.isFavorite}">
+                  {{ station.isFavorite ? 'star' : 'star_border' }}
+                </mat-icon>
+              </div>
+
+              <!-- Move Buttons -->
+              <button
+                class="move-to-top-button"
+                (click)="moveStationToTop(station['Station Id']); $event.stopPropagation()"
+              >
+                Move to Top
+              </button>
+              <button
+                class="move-to-bottom-button"
+                (click)="moveStationToBottom(station['Station Id']); $event.stopPropagation()"
+              >
+                Move to Bottom
+              </button>
+
+              <!-- Remove Button -->
+              <button
+                class="remove-button"
+                (click)="removeStation(station['Station Id']); $event.stopPropagation()"
+              >
+                Remove
+              </button>
+
+              <!-- Stipend -->
+              <p class="station-stipend">
+                <mat-icon>currency_rupee</mat-icon> {{ station['Stipend (HD)'] }}
+              </p>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Station Details (Expanded Content) -->
+        <div class="station-details">
+          <p><strong>Station Id:</strong> {{ station['Station Id'] }}</p>
+          <p><strong>Business Domain:</strong> {{ station['Business Domain'] }}</p>
+          <p><strong>Stipend (FD):</strong> ₹{{ station['Stipend (FD)'] }}</p>
+          <p><strong>Total Project:</strong> {{ station['Total Project'] }}</p>
+          <p><strong>Discipline:</strong> {{ station['Discipline'] }}</p>
+          <p><strong>Description:</strong> {{ station['Description'] }}</p>
+          <p><strong>Project Domain:</strong> {{ station['Project Domain'] }}</p>
+          <p><strong>Title:</strong> {{ station['Title'] }}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- Favorites Popup -->
+  <div
+    class="favorites-popup"
+    *ngIf="showFavorites"
+    id="favorites-popup"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="favorites-content">
+      <h3 class="favorites-title">Your Favorites</h3>
+      <div *ngIf="favoriteStations.length > 0; else noFavorites">
+        <mat-accordion>
+          <mat-expansion-panel
+            *ngFor="let station of favoriteStations; let i = index"
+            class="station-card"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="station-summary">
+                  <div class="station-sequence">
+                    <strong>#{{ i + 1 }}</strong>
+                  </div>
+                  <div class="station-info">
+                    <h3 class="station-name">{{ station['Station Name'] }}</h3>
+                    <p class="station-city">
+                      <mat-icon>location_on</mat-icon> {{ station['City'] }}
+                    </p>
+                  </div>
+
+                  <!-- Update Position -->
+                  <div class="update-position-container">
+                    <label for="popup-position-{{ station['Station Id'] }}">Update Position:</label>
+                    <input
+                      id="popup-position-{{ station['Station Id'] }}"
+                      type="number"
+                      [(ngModel)]="station.updatedPosition"
+                      [value]="getStationCurrentPosition(station['Station Id'])"
+                      min="1"
+                      [max]="stations.length"
+                    />
+                    <button (click)="updateStationPosition(station)">Update</button>
+                  </div>
+
+                  <!-- Unfavorite Button -->
+                  <button
+                    class="unfavorite-button"
+                    (click)="removeFromFavorites(station); $event.stopPropagation()"
+                  >
+                    Remove from Favorites
+                  </button>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <ng-template #noFavorites>
+        <p>No favorite stations found.</p>
+      </ng-template>
+      <button class="close-popup-button" (click)="closeFavoritesPopup()">Close</button>
+    </div>
+  </div>
+</div>

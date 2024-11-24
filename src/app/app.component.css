@@ -1,0 +1,139 @@
+/* Container Styling */
+.station-list-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title Styling */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #3f51b5;
+    font-weight: bold;
+  }
+  
+  /* Search Bar */
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Search Input Container */
+  .search-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  /* Input Field */
+  .search-input {
+    padding: 10px 35px 10px 10px;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Cross Icon Styling */
+  .clear-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 1.2rem;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .clear-icon:hover {
+    color: #3f51b5;
+  }
+  
+  /* Preference Input and Button */
+  .preference-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .preference-input {
+    width: 60px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .preference-container button {
+    padding: 10px 15px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .preference-container button:hover {
+    background-color: #2c387e;
+  }
+  
+  /* Save as PDF Button */
+  .save-pdf-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-pdf-button:hover {
+    background-color: #2c387e;
+  }
+  
+  /* Station List Layout */
+  .station-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .station-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .station-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .station-city,
+  .station-stipend {
+    font-size: 0.9rem;
+    color: gray;
+  }
+  
+  .station-stipend {
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  
